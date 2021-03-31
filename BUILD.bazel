@@ -1,0 +1,58 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+
+go_library(
+    name = "v8go",
+    srcs = [
+        "cgo.go",
+        "context.go",
+        "errors.go",
+        "function.go",
+        "function_template.go",
+        "isolate.go",
+        "json.go",
+        "object.go",
+        "object_template.go",
+        "promise.go",
+        "template.go",
+        "v8go.cc",
+        "v8go.go",
+        "v8go.h",
+        "value.go",
+    ],
+    cgo = True,
+    clinkopts = [
+        "-pthread",
+    ],
+    cxxopts = [
+        "-fno-rtti -fpic -std=c++14 -DV8_COMPRESS_POINTERS -DV8_31BIT_SMIS_ON_64BIT_ARCH",
+    ],
+    importpath = "github.com/robfig/v8go",
+    visibility = ["//visibility:public"],
+    cdeps = ["//deps"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":v8go",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "v8go_test",
+    srcs = [
+        "context_test.go",
+        "errors_test.go",
+        "export_test.go",
+        "function_test.go",
+        "function_template_test.go",
+        "isolate_test.go",
+        "json_test.go",
+        "object_template_test.go",
+        "object_test.go",
+        "promise_test.go",
+        "v8go_test.go",
+        "value_test.go",
+    ],
+    embed = [":v8go"],
+)

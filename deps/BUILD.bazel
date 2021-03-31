@@ -1,0 +1,12 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "deps",
+    srcs = select({
+        "@io_bazel_rules_go//go/platform:darwin": ["darwin_x86_64/libv8.a"],
+        "@io_bazel_rules_go//go/platform:linux": ["linux_x86_64/libv8.a"],
+        "//conditions:default": ["UNSUPPORTED_PLATFORM"],
+    }),
+    hdrs = glob(["include/**/*"]),
+    strip_include_prefix = "include",
+)

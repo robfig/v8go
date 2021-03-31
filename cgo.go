@@ -13,14 +13,3 @@ package v8go
 // #cgo darwin LDFLAGS: -L${SRCDIR}/deps/darwin_x86_64
 // #cgo linux LDFLAGS: -L${SRCDIR}/deps/linux_x86_64
 import "C"
-
-// These imports forces `go mod vendor` to pull in all the folders that
-// contain V8 libraries and headers which otherwise would be ignored.
-// DO NOT REMOVE
-import (
-	_ "rogchap.com/v8go/deps/darwin_x86_64"
-	_ "rogchap.com/v8go/deps/include"
-	_ "rogchap.com/v8go/deps/include/cppgc"
-	_ "rogchap.com/v8go/deps/include/libplatform"
-	_ "rogchap.com/v8go/deps/linux_x86_64"
-)

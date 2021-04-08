@@ -7,7 +7,7 @@ jobs:
         name: Build V8 for ${{ matrix.platform }}
         strategy:
             matrix:
-                platform: [ubuntu-latest, macos-latest]
+                platform: [ubuntu-18.04]
         runs-on: ${{ matrix.platform }}
         steps:
             - name: Checkout
@@ -16,7 +16,7 @@ jobs:
                   submodules: true
                   fetch-depth: 1
             - name: Build V8 linux
-              if: matrix.platform == 'ubuntu-latest'
+              if: matrix.platform == 'ubuntu-18.04'
               run: cd deps && ./build.py --no-clang
             - name: Build V8 macOS
               if: matrix.platform == 'macos-latest'

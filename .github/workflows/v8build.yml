@@ -21,13 +21,8 @@ jobs:
             - name: Build V8 macOS
               if: matrix.platform == 'macos-latest'
               run: cd deps && ./build.py
-            - name: Create PR
-              uses: peter-evans/create-pull-request@v3
+            - name: Upload libv8.a
+              uses: actions/upload-artifact@v2
               with:
-                commit-message: Update V8 static library for ${{ matrix.platform  }}
-                branch: v8-lib
-                branch-suffix: random
-                delete-branch: true
-                title: V8 static library for ${{ matrix.platform  }}
-                body: Auto-generated pull request to build V8 for ${{ matrix.platform  }}
-
+                name: deps/linux_x86_64/libv8.a
+                path: deps/linux_x86_64/libv8.a

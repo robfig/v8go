@@ -25,4 +25,4 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                 name: linux_x86_64-libv8.a
-                path: deps/linux_x86_64/libv8.a
+                path: deps/obj/libv8_monolith.a

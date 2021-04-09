@@ -7,7 +7,7 @@ jobs:
         name: Build V8 for ${{ matrix.platform }}
         strategy:
             matrix:
-                platform: [ubuntu-18.04]
+                platform: [ubuntu-16.04]
         runs-on: ${{ matrix.platform }}
         steps:
             - name: Checkout
@@ -16,11 +16,13 @@ jobs:
                   submodules: true
                   fetch-depth: 1
             - name: Build V8 linux
-              if: matrix.platform == 'ubuntu-18.04'
+              if: matrix.platform == 'ubuntu-16.04'
               run: cd deps && ./build.py --no-clang
             - name: Build V8 macOS
               if: matrix.platform == 'macos-latest'
               run: cd deps && ./build.py
+            - name: List libraries
+              run: find deps -type '*.a'
             - name: Upload libv8.a
               uses: actions/upload-artifact@v2
               with:

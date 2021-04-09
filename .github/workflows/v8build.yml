@@ -22,7 +22,7 @@ jobs:
               if: matrix.platform == 'macos-latest'
               run: cd deps && ./build.py
             - name: List libraries
-              run: find deps -type '*.a'
+              run: find deps -name '*.a'
             - name: Upload libv8.a
               uses: actions/upload-artifact@v2
               with:

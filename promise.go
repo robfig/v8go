@@ -85,3 +85,9 @@ func (p *Promise) Result() *Value {
 	val := &Value{ptr, p.ctx}
 	return val
 }
+
+func (p *Promise) Then() *Value {
+	ptr := C.PromiseResult(p.ptr)
+	val := &Value{ptr, p.ctx}
+	return val
+}

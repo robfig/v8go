@@ -7,12 +7,33 @@ package v8go
 // #include "v8go.h"
 import "C"
 import (
+	"errors"
+	"runtime"
 	"unsafe"
 )
 
 // Function is a JavaScript function.
 type Function struct {
 	*Value
+}
+
+// NewFunction creates a Function for a given callback.
+func NewFunction(iso *Isolate, callback FunctionCallback) (*Function, error) {
+	if iso == nil {
+		return nil, errors.New("v8go: failed to create new FunctionTemplate: Isolate cannot be <nil>")
+	}
+	if callback == nil {
+		return nil, errors.New("v8go: failed to create new FunctionTemplate: FunctionCallback cannot be <nil>")
+	}
+
+	cbref := iso.registerCallback(callback)
+
+	tmpl := &template{
+		ptr: C.NewFunctionTemplate(iso.ptr, C.int(cbref)),
+		iso: iso,
+	}
+	runtime.SetFinalizer(tmpl, (*template).finalizer)
+	return &FunctionTemplate{tmpl}, nil
 }
 
 // Call this JavaScript function with the given arguments.

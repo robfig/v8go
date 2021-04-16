@@ -176,6 +176,7 @@ int PromiseResolverReject(ValuePtr ptr, ValuePtr val_ptr);
 int PromiseState(ValuePtr ptr);
 extern ValuePtr PromiseResult(ValuePtr ptr);
 
+extern ValuePtr NewFunction(ContextPtr ctx_ptr, int callback_ref);
 extern RtnValue FunctionCall(ValuePtr ptr, int argc, ValuePtr argv[]);
 
 extern ValuePtr ExceptionError(IsolatePtr iso_ptr, const char* message);

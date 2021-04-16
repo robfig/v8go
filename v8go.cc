@@ -1171,6 +1171,21 @@ ValuePtr PromiseResult(ValuePtr ptr) {
 
 /********** Function **********/
 
+ValuePtr NewFunction(ContextPtr ctx_ptr, int callback_ref) {
+  LOCAL_CONTEXT(ctx_ptr);
+
+  Local<Integer> cbData = Integer::New(iso, callback_ref);
+  Local<Function> func = Function::New(local_ctx, FunctionTemplateCallback, cbData)
+    .ToLocalChecked();
+
+  m_value* val = new m_value;
+  val->iso = iso;
+  val->ctx = ctx;
+  val->ptr = Persistent<Value, CopyablePersistentTraits<Value>>(iso, func);
+
+  return tracked_value(ctx, val);
+}
+
 RtnValue FunctionCall(ValuePtr ptr, int argc, ValuePtr args[]) {
   LOCAL_VALUE(ptr)
   RtnValue rtn = {nullptr, nullptr};

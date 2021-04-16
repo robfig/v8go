@@ -86,8 +86,12 @@ func (p *Promise) Result() *Value {
 	return val
 }
 
-func (p *Promise) Then() *Value {
-	ptr := C.PromiseResult(p.ptr)
-	val := &Value{ptr, p.ctx}
-	return val
+// Then invokes the given function when the promise has been resolved or rejected.
+// A Promise is returned that resolves after the given function has finished execution.
+func (p *Promise) Then(cb FunctionCallback) *Value {
+	p.ctx.register()
+	defer p.ctx.deregister()
+	cbID := p.ctx.iso.registerCallback(cb)
+	ptr := C.PromiseThen(p.ptr, C.int(cbID))
+	return &Value{ptr, p.ctx}
 }

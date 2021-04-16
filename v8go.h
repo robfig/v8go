@@ -174,6 +174,7 @@ extern ValuePtr PromiseResolverGetPromise(ValuePtr ptr);
 int PromiseResolverResolve(ValuePtr ptr, ValuePtr val_ptr);
 int PromiseResolverReject(ValuePtr ptr, ValuePtr val_ptr);
 int PromiseState(ValuePtr ptr);
+ValuePtr PromiseThen(ValuePtr ptr, int callback_ref);
 extern ValuePtr PromiseResult(ValuePtr ptr);
 
 extern ValuePtr NewFunction(ContextPtr ctx_ptr, int callback_ref);

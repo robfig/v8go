@@ -1157,6 +1157,21 @@ int PromiseState(ValuePtr ptr) {
   return promise->State();
 }
 
+ValuePtr PromiseThen(ValuePtr ptr, int callback_ref) {
+  LOCAL_VALUE(ptr)
+  Local<Promise> promise = value.As<Promise>();
+  Local<Integer> cbData = Integer::New(iso, callback_ref);
+  Local<Function> func = Function::New(local_ctx, FunctionTemplateCallback, cbData)
+    .ToLocalChecked();  
+  Local<Promise> result = promise->Then(local_ctx, func).ToLocalChecked();
+  m_value* promise_val = new m_value;
+  promise_val->iso = iso;
+  promise_val->ctx = ctx;
+  promise_val->ptr =
+      Persistent<Value, CopyablePersistentTraits<Value>>(iso, promise);
+  return tracked_value(ctx, promise_val);
+}
+
 ValuePtr PromiseResult(ValuePtr ptr) {
   LOCAL_VALUE(ptr)
   Local<Promise> promise = value.As<Promise>();

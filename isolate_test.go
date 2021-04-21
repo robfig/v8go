@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"rogchap.com/v8go"
+	"github.com/robfig/v8go"
 )
 
 func TestIsolateTermination(t *testing.T) {

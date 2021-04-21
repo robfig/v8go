@@ -14,7 +14,7 @@
 ## Usage
 
 ```go
-import "rogchap.com/v8go"
+import "github.com/robfig/v8go"
 ```
 
 ### Running a script

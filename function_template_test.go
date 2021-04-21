@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"rogchap.com/v8go"
+	"github.com/robfig/v8go"
 )
 
 func TestFunctionTemplate(t *testing.T) {

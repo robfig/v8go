@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"testing"
 
-	"rogchap.com/v8go"
+	"github.com/robfig/v8go"
 )
 
 func TestContextRunScript(t *testing.T) {
